@@ -10,9 +10,10 @@ const htmlPlugin = new HtmlPlugin({
 
 module.exports = {
   mode: "development",
-  entry: path.join(__dirname, "./src/index.tsx"),
+  entry: path.resolve(__dirname, "./src/index.tsx"),
   output: {
-    path: path.join(__dirname, "./dist"),
+    publicPath: '/',
+    path: path.resolve(__dirname, "./dist"),
     filename: "bundle.js",
   },
   plugins: [htmlPlugin, cleanPlugin],
@@ -34,5 +35,10 @@ module.exports = {
       },
       { test: /\.([cm]?ts|tsx)$/, loader: "ts-loader" },
     ],
+  },
+  devServer: {
+    static: path.resolve(__dirname, "./dist"),
+    hot: true,
+    historyApiFallback: true,
   },
 };
